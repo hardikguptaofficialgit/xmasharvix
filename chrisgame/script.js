@@ -66,9 +66,13 @@ const scoreElement = createElementStyle(
 const canvas = createElementStyle("canvas");
 const introductionElement = createElementStyle(
   "div",
-  `font-size:1.2em;position:absolute;text-align:center;transition:opacity 2s;width:250px`,
+  `font-size:1.2em;position:absolute;text-align:center;transition:opacity 2s;width:250px;top:0px;right:0px;`,
   "Press and hold anywhere to stretch out a sugar cane, it has to be the exact length or Santa will fall down"
 );
+
+
+
+
 const perfectElement = createElementStyle(
   "div",
   "position:absolute;opacity:0;transition:opacity 2s",
@@ -370,27 +374,54 @@ function drawPlatforms() {
     let newW = w - 6;
     let platformHeight =
       config.platformHeight + (window.innerHeight - config.canvasHeight) / 2;
+
+    // Set a radius for the rounded corners
+    const cornerRadius = 15; // Adjust this value to change the roundness
+
     ctx.fillStyle = colours.platform;
-    ctx.fillRect(
-      newX,
+
+    // Draw the platform with rounded corners
+    ctx.beginPath();
+    ctx.moveTo(newX + cornerRadius, config.canvasHeight - config.platformHeight);
+    
+    // Top-right corner
+    ctx.arcTo(
+      newX + newW,
       config.canvasHeight - config.platformHeight,
-      newW,
-      platformHeight
+      newX + newW,
+      config.canvasHeight - platformHeight,
+      cornerRadius
     );
 
-    for (let i = 1; i <= platformHeight / 10; ++i) {
-      let yGap = config.canvasHeight - config.platformHeight + i * 10;
-      ctx.moveTo(newX, yGap);
-      ctx.lineTo(newX + newW, yGap);
-      let xGap = i % 2 ? 0 : 10;
-      for (let j = 1; j < newW / 30; ++j) {
-        let x = j * 20 + xGap;
-        ctx.moveTo(newX + x, yGap);
-        ctx.lineTo(newX + x, yGap + 10);
-      }
-      ctx.strokeStyle = colours.platformTop;
-      ctx.stroke();
-    }
+    // Bottom-right corner
+    ctx.arcTo(
+      newX + newW,
+      config.canvasHeight - platformHeight,
+      newX + cornerRadius,
+      config.canvasHeight - platformHeight,
+      cornerRadius
+    );
+
+    // Bottom-left corner
+    ctx.arcTo(
+      newX,
+      config.canvasHeight - platformHeight,
+      newX,
+      config.canvasHeight - config.platformHeight,
+      cornerRadius
+    );
+
+    // Top-left corner
+    ctx.arcTo(
+      newX,
+      config.canvasHeight - config.platformHeight,
+      newX + cornerRadius,
+      config.canvasHeight - config.platformHeight,
+      cornerRadius
+    );
+
+    ctx.closePath();
+    ctx.fill();
 
     ctx.fillStyle = colours.platformTop;
     ctx.fillRect(x, config.canvasHeight - config.platformHeight, w, 10);
