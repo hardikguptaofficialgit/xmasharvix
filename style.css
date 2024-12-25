@@ -1,0 +1,234 @@
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #282828;
+  color: white;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  animation: fadeInBody 3s ease-in-out;
+}
+
+/* Body background */
+body {
+  background: #000;
+}
+
+/* Snowflakes effect */
+.snowflakes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.snowflake {
+  position: absolute;
+  color: white;
+  font-size: 2rem;
+  animation: snow 10s linear infinite;
+}
+
+/* Gift container and effect */
+.container {
+  text-align: center;
+  position: relative;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+header p {
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+}
+
+.gift-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  animation: fadeIn 3s ease-in-out;
+}
+
+.gift {
+  background: #ff0000;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  transform: scale(0);
+  transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+.gift.open {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.gift:hover {
+  transform: scale(1.1);
+}
+
+.gift-image {
+  background-image: url('gift-image.png');
+  background-size: cover;
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+}
+
+.gift-name {
+  position: absolute;
+  bottom: 10px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.message {
+  font-size: 1.5rem;
+  margin-top: 30px;
+  color: #ffcc00;
+  display: none;
+  opacity: 0;
+  animation: fadeInMessage 2s ease-in-out;
+}
+
+/* Text styles */
+@font-face {
+  font-family: 'mountains_of_christmasregular';
+  src: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/mountainsofchristmas-webfont.woff2') format('woff2'),
+       url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/mountainsofchristmas-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#endMessage {
+  font-family: mountains_of_christmasregular;
+  font-size: 2rem;
+  text-anchor: middle;
+  text-align: center;
+  fill: #FFFFFF;
+  color: #FFFFFF;
+  opacity: 0;
+  letter-spacing: 1px;
+}
+
+/* Snowflakes animation */
+@keyframes snow {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+/* Fade-in effects */
+@keyframes fadeInBody {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInMessage {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Lightrope effect */
+body {
+  background-color: #151522;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+.lightrope {
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
+  margin: -15px 0 0 0;
+  padding: 0;
+  pointer-events: none;
+  width: 100%;
+}
+
+.lightrope li {
+  position: relative;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  width: 12px;
+  height: 28px;
+  border-radius: 50%;
+  margin: 20px;
+  background: #00f7a5;
+  box-shadow: 0px 4.6666666667px 24px 3px #00f7a5;
+  animation-name: flash-1;
+  animation-duration: 2s;
+}
+
+.lightrope li:nth-child(2n+1) {
+  background: aqua;
+  box-shadow: 0px 4.6666666667px 24px 3px rgba(0, 255, 255, 0.5);
+  animation-name: flash-2;
+  animation-duration: 0.4s;
+}
+
+.lightrope li:nth-child(4n+2) {
+  background: #f70094;
+  box-shadow: 0px 4.6666666667px 24px 3px #f70094;
+  animation-name: flash-3;
+  animation-duration: 1.1s;
+}
+
+/* Lightrope animations */
+@keyframes flash-1 {
+  0%, 100% { background: #00f7a5; box-shadow: 0px 4.6666666667px 24px 3px #00f7a5; }
+  50% { background: rgba(0, 247, 165, 0.4); box-shadow: 0px 4.6666666667px 24px 3px rgba(0, 247, 165, 0.2); }
+}
+
+@keyframes flash-2 {
+  0%, 100% { background: aqua; box-shadow: 0px 4.6666666667px 24px 3px aqua; }
+  50% { background: rgba(0, 255, 255, 0.4); box-shadow: 0px 4.6666666667px 24px 3px rgba(0, 255, 255, 0.2); }
+}
+
+@keyframes flash-3 {
+  0%, 100% { background: #f70094; box-shadow: 0px 4.6666666667px 24px 3px #f70094; }
+  50% { background: rgba(247, 0, 148, 0.4); box-shadow: 0px 4.6666666667px 24px 3px rgba(247, 0, 148, 0.2); }
+}
+
+/* Link styling */
+a {
+  color: white;
+  text-decoration: underline dotted #FFFFFF;
+}
+
+a:visited {
+  color: red;
+}

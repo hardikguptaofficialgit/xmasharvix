@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XMAS Harvix</title>
+  <link rel="stylesheet" href="factory.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      color: #eee;
+      background-image: url('starry-night.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    h1, p {
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+    }
+
+    #wishForm {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #333;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      animation: form-popup 1s ease-out forwards;
+      text-align: center;
+      opacity: 1;
+    }
+
+    @keyframes form-popup {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 12px;
+      font-size: 1.2em;
+      background-color: #444;
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      margin: 10px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      box-shadow: 0 0 12px #ff6347;
+      background-color: #555;
+    }
+
+    input[type="text"]::placeholder {
+      color: #bbb;
+    }
+
+    button {
+      width: 80%;
+      padding: 14px;
+      background-color: #ff6347;
+      color: white;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background-color: #e55347;
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    #giftBox {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ff6347;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      color: white;
+      font-size: 1.5em;
+      opacity: 0;
+      animation: giftPopup 1s ease-out forwards;
+      z-index: 1001;
+      text-align: center;
+    }
+
+    @keyframes giftPopup {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .gift {
+      font-size: 5em;
+      margin-bottom: 20px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .tap-message {
+      font-size: 1.5em;
+      margin-top: 20px;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 10px 20px;
+      background-color: #d9534f;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .tap-message:hover {
+      background-color: #ff6347;
+    }
+
+    .snowflake {
+      position: absolute;
+      background-color: #fff;
+      border-radius: 50%;
+      width: 8px;
+      height: 8px;
+      animation: snowfall 10s linear infinite;
+    }
+
+    @keyframes snowfall {
+      0% {
+        top: -10px;
+      }
+
+      100% {
+        top: 100vh;
+      }
+    }
+
+    .snow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .snowflake {
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      border-radius: 50%;
+      animation: fall 10s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px);
+      }
+
+      100% {
+        transform: translateY(100vh);
+      }
+    }
+
+    @media (max-width: 768px) {
+      #wishForm {
+        width: 80%;
+        padding: 20px;
+      }
+
+      input[type="text"],
+      button {
+        width: 100%;
+      }
+
+      #giftBox {
+        padding: 30px;
+      }
+
+      .gift {
+        font-size: 4em;
+      }
+
+      .tap-message {
+        font-size: 1.2em;
+      }
+    }
+
+    #merryMessage {
+      font-family: 'Pacifico', 'Sacramento', sans-serif;
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+      margin-top: 20px;
+      white-space: nowrap;
+      opacity: 0;
+      animation: slideIn 2s forwards;
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Footer styles */
+    #footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2em;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #footer a {
+      color: #ff6347;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    #footer a:hover {
+      color: #e55347;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="wishForm">
+    <h1>Enter Your Name:</h1>
+    <form id="nameForm">
+      <input type="text" id="friendName" placeholder="Enter your name here" required>
+      <button type="submit">Start</button>
+    </form>
+  </div>
+
+  <div class="workshop" id="workshop"></div>
+
+  <div id="giftBox">
+    <center>
+      <div class="gift"></div><br>
+      <p id="merryMessage"></p>
+    </center>
+    <p class="tap-message" id="tapToOpen">Tap to open your gift!</p>
+  </div>
+
+  <div class="snow" id="snow"></div>
+
+  <audio id="backgroundMusic" autoplay loop>
+    <source src="backgroundmusic.mp3" type="audio/mp3">
+  </audio>
+
+  <audio id="tapSound" preload="auto">
+    <source src="tapsound.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    let backgroundMusicPlayed = 0;
+    document.getElementById('nameForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('friendName').value;
+      document.getElementById('wishForm').style.display = 'none';
+      document.getElementById('workshop').style.display = 'block';
+
+      function playBackgroundMusic() {
+        if (backgroundMusicPlayed < 3) {
+          document.getElementById('backgroundMusic').play();
+          backgroundMusicPlayed++;
+          setTimeout(playBackgroundMusic, 15000);
+        }
+      }
+      playBackgroundMusic();
+
+      setTimeout(function() {
+        document.querySelector('.tap-message').style.display = 'block';
+        const ribbons = document.createElement('div');
+        ribbons.className = 'ribbons';
+        document.body.appendChild(ribbons);
+        document.getElementById('merryMessage').innerText = `Merry Christmas, ${name}!🎄`;
+        document.getElementById('giftBox').style.display = 'block';
+        document.getElementById('backgroundMusic').pause();
+        const bgMusic = new Audio('tapsound.mp3');
+        bgMusic.loop = true;
+        bgMusic.play();
+      }, 18000);
+    });
+
+    document.getElementById('tapToOpen').addEventListener('click', function() {
+      document.getElementById('tapSound').play();
+      window.location.href = "./chrisgame";
+    });
+
+    function createSnowflakes() {
+      const snow = document.getElementById('snow');
+      setInterval(function() {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+        snow.appendChild(snowflake);
+        setTimeout(() => snowflake.remove(), 10000);
+      }, 100);
+    }
+    createSnowflakes();
+  </script>
+
+  <!-- Footer -->
+  <div id="footer">
+    Designed by <a href="https://www.linkedin.com/in/hardik-harvix-405/" target="_blank">Hardik (Harvix)</a>
+  </div>
+
+</body>
+</html>
