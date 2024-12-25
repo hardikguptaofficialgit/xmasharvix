@@ -6,7 +6,7 @@ let sceneOffset;
 let score = 0;
 let platforms = [];
 let sticks = [];
-let trees = [];
+
 let clouds = [];
 
 const config = {
@@ -23,16 +23,16 @@ const config = {
 };
 
 const colours = {
-  lightBg: "#62AFB9",
-  medBg: "#182757",
-  darkBg: "#0D5B66",
-  lightHill: "#E9E9E9",
-  medHill: "#34A65F",
-  darkHill: "#07133A",
-  platform: "#9B4546",
-  platformTop: "#620E0E",
+  lightBg: "black",
+  medBg: "white",
+  darkBg: "white",
+  lightHill: "white",
+  medHill: "white",
+  darkHill: "white",
+  platform: "white",
+  platformTop: "blue",
   em: "#CC231E",
-  skin: "#CF6D60"
+  skin: ""
 };
 
 const hills = [
@@ -76,9 +76,10 @@ const perfectElement = createElementStyle(
 );
 const restartButton = createElementStyle(
   "button",
-  `width:120px;height:120px;position:absolute;border-radius:50%;color:white;background-color:${colours.em};border:none;font-weight:700;font-size:1.2em;display:none;cursor:pointer`,
+  `width:100px;height:120px;position:absolute;border-radius:100%;color:white;background-color:#003366;border:none;font-weight:700;font-size:1.2em;display:none;cursor:pointer`,
   "RESTART"
 );
+
 
 
 canvas.width = window.innerWidth;
@@ -146,7 +147,7 @@ function resetGame() {
   perfectElement.style.opacity = 0;
   restartButton.style.display = "none";
   scoreElement.innerText = score;
-  platforms = [{ x: 50, w: 50 }];
+  platforms = [{ x: 40, w: 40 }];
   santaX = platforms[0].x + platforms[0].w - config.santaDistanceFromEdge;
   santaY = 0;
   sticks = [{ x: platforms[0].x + platforms[0].w, length: 0, rotation: 0 }];
@@ -163,10 +164,10 @@ function resetGame() {
 }
 
 function generateCloud() {
-  const minimumGap = 60;
-  const maximumGap = 300;
+  const minimumGap = 0;
+  const maximumGap = 0;
 
-  const lastCloud = clouds[clouds.length - 1];
+  const lastCloud = clouds[clouds.length - 0];
   let furthestX = lastCloud ? lastCloud.x : 0;
 
   const x =
@@ -502,7 +503,7 @@ function drawBackground() {
     drawHill(hill.baseHeight, hill.amplitude, hill.stretch, hill.colour)
   );
   trees.forEach((tree) => drawTree(tree.x, tree.color));
-  clouds.forEach((cloud) => drawCloud(cloud.x, cloud.y, cloud.w));
+  clouds.forEach((cloud) => drawCloud(cloud.x, cloud.x, cloud.x));
 }
 
 function drawHill(baseHeight, amplitude, stretch, color) {
